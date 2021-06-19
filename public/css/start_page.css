@@ -1,0 +1,19 @@
+.form-button {
+  width: 100%;
+  border-radius: 2px;
+  margin: 10px 0;
+}
+
+.form-container {
+  position: relative;
+  height: 40%;
+}
+
+.start-container {
+  min-height: 500px;
+  width: 500px;
+}
+
+.start-alert {
+  width: 500px;
+}

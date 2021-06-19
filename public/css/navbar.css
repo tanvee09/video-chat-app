@@ -1,0 +1,11 @@
+body {
+  padding-top: 60px;
+}
+
+.bg-light {
+  background-color: #fff;
+}
+
+.nav-link {
+  font-size: 18px;
+}
