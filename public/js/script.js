@@ -49,12 +49,14 @@ navigator.mediaDevices.getUserMedia({
     setTimeout(function(){
       $(`#${userId}join`).remove();
     }, 2000);
+    // document.getElementById('v_' + data.userId).getElementsByClassName('text-block')[0].innerHTML = data.username;
   });
 
   socket.on('participant-add', data => {
     console.log(myUserId, data.toUserId);
     if (myUserId == data.toUserId) {
       addToParticipantList(data.fromUserId, data.fromUserName);
+      // document.getElementById('v_' + data.fromUserId).getElementsByClassName('text-block')[0].innerHTML = data.fromUserName;
     }
   });
 
@@ -129,7 +131,7 @@ const addVideoStream = (video, stream, userId) => {
   video.addEventListener('loadedmetadata', () => {
     video.play();
   });
-  if (userId) video.id = 'v_' + userId;
+  video.id = 'v_' + userId;
   let videoRows = videoGrid.getElementsByClassName('video-row');
   let numRows = videoGrid.getElementsByClassName('video-row').length;
   if (videoRows == undefined || numRows == 0 || videoRows[numRows - 1].getElementsByTagName('video').length == 3) {
@@ -261,14 +263,14 @@ const closeChat = () => {
 
 const addToParticipantList = (userId, username) => {
   console.log(username);
-  $('.participants').append(`<li class="message" id="p_${userId}">${username}</li>`);
+  $('.participants').append(`<li class="message" id="p_${userId}"><i style="font-size:14px;" class='fas fa-user-alt'></i> ${username}</li>`);
 }
 
 const removeParticipant = (userId) => {
   let toRemove = document.getElementById(`p_${userId}`);
   toRemove.parentNode.removeChild(toRemove);
   let videoRemove = document.getElementById(`v_${userId}`);
-  if (videoRemove) videoRemove.parentNode.removeChild(videoRemove);
+  if(videoRemove) videoRemove.parentNode.removeChild(videoRemove);
 }
 
 const raiseLowerHand = (e) => {
@@ -284,12 +286,12 @@ const raiseLowerHand = (e) => {
 
 const lowerHand = (userId, username) => {
   let participant = document.getElementById(`p_${userId}`);
-  participant.innerHTML = username;
+  participant.innerHTML = '<i style="font-size:14px;" class="fas fa-user-alt"> ' + username;
 }
 
 const raiseHand = (userId, username) => {
   let participant = document.getElementById(`p_${userId}`);
-  participant.innerHTML = username + ' <i style="font-size:14px;" class="fas fa-hand-paper"></i>';
+  participant.innerHTML = '<i style="font-size:14px;" class="fas fa-user-alt"> ' + username + ' <i style="font-size:14px;" class="fas fa-hand-paper"></i>';
   let rh = document.createElement('div');
   rh.innerHTML = `<div class="alert bg-dark-alert">${username} raised hand</div>`;
   rh.id = userId + 'rh';
@@ -325,20 +327,6 @@ document.getElementById("shareButton").addEventListener("click", shareMeet);
 document.getElementById("modalCloseButton").addEventListener("click", () => {
   modal.style.display = "none";
 });
-
-// document.body.getElementById('sendmailButton').addEventListener('click', (e) => {
-//   var emails = document.getElementById('emailids').value;
-//   emailjs
-//     .sendForm('gmail', apiKeys.TEMPLATE_ID, e.target, user_nGwNUNQE4nyXKuQRbcB0r)
-//     .then(
-//       result => {
-//         console.log(result.text)
-//       },
-//       error => {
-//         console.log(error.text)
-//       }
-//     )
-// })
 
 window.onclick = function(event) {
   if (event.target == modal) {

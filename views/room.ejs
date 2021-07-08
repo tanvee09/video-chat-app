@@ -73,9 +73,9 @@
       <div class="main_header">
         <p>Participants</p>
       </div>
-      <div class="main_chat_window">
+      <div class="main_participants_window">
         <ul class="participants">
-          <li id="p_my_participant"><%= name %> (You)</li>
+          <li id="p_my_participant"><i class='fas fa-user-alt'></i> <%= name %> (You)</li>
         </ul>
       </div>
     </div>
@@ -88,10 +88,10 @@
       <span class="close" id="modalCloseButton">&times;</span>
       <form action="/sendinvites" method="POST">
         <p style="color:green">Meet link copied to clipboard!</p>
-        <p>Enter comma separated emails to send invite: </p>
+        <!-- <p>Enter comma separated emails to send invite: </p>
         <input type="text" name="emailids" type="text" id="emailids"><br/>
         <input type="text" id="shareLinkText" style="display: none;" name="meetlink">
-        <button id="sendmailButton">Send invite</button>
+        <button id="sendmailButton">Send invite</button> -->
       </form>
     </div>
   
