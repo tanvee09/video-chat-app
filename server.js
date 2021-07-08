@@ -8,6 +8,7 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const { pool } = require("./dbConfig");
+const nodemailer = require('nodemailer');
 
 const io = require('socket.io')(server);
 const { ExpressPeerServer } = require('peer');
@@ -219,6 +220,34 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// ----------------- SEND INVITE ---------------------
+
+app.post('/sendinvites', (req, res) => {
+  var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    auth: {
+      user: 'ihatebinod@gmail.com',
+      pass: 'divyanshtyagi'
+    }
+  });
+
+  var mailOptions = {
+    from: 'ihatebinod@gmail.com',
+    to: req.body.emailids, //Tanvee get the receiver's email ids here
+    subject: 'Meet invite',
+    text: 'You are being invited to a meet: ' + req.body.meetlink
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  return;
+})
+
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
       return res.redirect('/profile');
@@ -238,14 +267,30 @@ function checkNotAuthenticated(req, res, next) {
 
 
 io.on('connection', socket => {
-  socket.on('join-room', (roomId, userId) => {
+  socket.on('join-room', (roomId, userId, username) => {
     socket.join(roomId);
-    socket.to(roomId).emit('user-connected', userId);
+    socket.to(roomId).emit('user-connected', {userId, username});
 
     socket.on('message', data => {
       io.to(roomId).emit('create-message', { message: data.message, username: data.username, userId: data.userId });
     });
-  })
+
+    socket.on("disconnect", reason => {
+      io.to(roomId).emit("user-disconnected", {userId, username}); 
+    });
+
+    socket.on("participant-add", data => {
+      io.to(roomId).emit("participant-add", data);
+    });
+
+    socket.on("hand-raised", data => {
+      io.to(roomId).emit("hand-raised", data);
+    });
+
+    socket.on("hand-lowered", data => {
+      io.to(roomId).emit("hand-lowered", data);
+    });
+  });
 });
 
 
