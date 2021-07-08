@@ -13,7 +13,7 @@ let handRaised = false;
 var peer = new Peer(undefined, { // id -> undefined
   path: '/peerjs',
   host: '/',
-  port: '7000'
+  port: '443'
 });
 
 let myVideoStream;

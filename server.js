@@ -220,33 +220,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// ----------------- SEND INVITE ---------------------
-
-app.post('/sendinvites', (req, res) => {
-  var transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    auth: {
-      user: 'ihatebinod@gmail.com',
-      pass: 'divyanshtyagi'
-    }
-  });
-
-  var mailOptions = {
-    from: 'ihatebinod@gmail.com',
-    to: req.body.emailids, //Tanvee get the receiver's email ids here
-    subject: 'Meet invite',
-    text: 'You are being invited to a meet: ' + req.body.meetlink
-  };
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-  return;
-})
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -294,6 +267,6 @@ io.on('connection', socket => {
 });
 
 
-server.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+server.listen(process.env.PORT || 7000, () => {
+  console.log(`Server running on port ${process.env.PORT || 7000}`);
 });
