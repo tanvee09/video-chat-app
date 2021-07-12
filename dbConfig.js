@@ -8,4 +8,4 @@ const pool = new Pool({
     connectionString: connectionString
 });
 
-module.exports = { pool };DB_CONNECTION_STRINGDB_CONNECTION_STRING
+module.exports = { pool };
