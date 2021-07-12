@@ -4,7 +4,8 @@ Tanvee Balhara
 Netaji Subhas University of Technology  
   
 Hosted at <a href = "https://agile-tundra-90042.herokuapp.com">agile-tundra-90042.herokuapp.com</a>  
-Presentation <a href = "https://drive.google.com/file/d/1QzP6NXuOdZidW7ZxlFpYuMm50uyK5cn-/view?usp=sharing">link</a>
+Presentation <a href = "https://drive.google.com/file/d/1QzP6NXuOdZidW7ZxlFpYuMm50uyK5cn-/view?usp=sharing">link</a>  
+Demo <a href = "https://youtu.be/aUMDg-ieirU">link</a>
 
 ### Setup
 1. Create a database table using the query in db.sql
