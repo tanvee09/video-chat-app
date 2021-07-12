@@ -8,7 +8,6 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const { pool } = require("./dbConfig");
-const nodemailer = require('nodemailer');
 
 const io = require('socket.io')(server);
 const { ExpressPeerServer } = require('peer');

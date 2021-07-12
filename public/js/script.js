@@ -1,6 +1,4 @@
-try {
 const socket = io();
-
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 myVideo.muted = true;
@@ -13,7 +11,7 @@ let handRaised = false;
 var peer = new Peer(undefined, { // id -> undefined
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: '7000'
 });
 
 let myVideoStream;
@@ -267,18 +265,23 @@ const addToParticipantList = (userId, username) => {
 }
 
 const removeParticipant = (userId) => {
+  try{
   let toRemove = document.getElementById(`p_${userId}`);
   toRemove.parentNode.removeChild(toRemove);
   let videoRemove = document.getElementById(`v_${userId}`);
   if(videoRemove) videoRemove.parentNode.removeChild(videoRemove);
+  } catch(err) {
+    alert(err);
+  }
 }
 
-const raiseLowerHand = (e) => {
+const raiseLowerHand = () => {
+
   if (handRaised) {
-    e.target.style.color = "black";
+    document.getElementById("raisehandButton").style.color = "black";
     socket.emit('hand-lowered', {userId: myUserId, username: USER_NAME});
   } else {
-    e.target.style.color = "white";
+    document.getElementById("raisehandButton").style.color = "white";
     socket.emit('hand-raised', {userId: myUserId, username: USER_NAME});
   }
   handRaised = !handRaised;
@@ -286,12 +289,12 @@ const raiseLowerHand = (e) => {
 
 const lowerHand = (userId, username) => {
   let participant = document.getElementById(`p_${userId}`);
-  participant.innerHTML = '<i style="font-size:14px;" class="fas fa-user-alt"> ' + username;
+  participant.innerHTML = '<i style="font-size:14px;" class="fas fa-user-alt"></i> ' + username;
 }
 
 const raiseHand = (userId, username) => {
   let participant = document.getElementById(`p_${userId}`);
-  participant.innerHTML = '<i style="font-size:14px;" class="fas fa-user-alt"> ' + username + ' <i style="font-size:14px;" class="fas fa-hand-paper"></i>';
+  participant.innerHTML = '<i style="font-size:14px;" class="fas fa-user-alt"></i> ' + username + ' <i style="font-size:14px;" class="fas fa-hand-paper"></i>';
   let rh = document.createElement('div');
   rh.innerHTML = `<div class="alert bg-dark-alert">${username} raised hand</div>`;
   rh.id = userId + 'rh';
@@ -316,13 +319,22 @@ const shareMeet = () => {
   text.style.display = 'none';
 }
 
-document.getElementById("micButton").addEventListener("click", muteUnmute);
-document.getElementById("videoButton").addEventListener("click", playStop);
-document.getElementById("chatButton").addEventListener("click", openCloseChats);
-document.getElementById("participantsButton").addEventListener("click", openCloseParticipants);
+function check(){
+  console.log("here");
+}
+// document.getElementById("papa").addEventListener("click", function(){
+//   console.log("pressed");
+// });
+// document.getElementById("micButton").addEventListener("click", function(){
+//   console.log("pres");
+//   muteUnmute();
+// });
+// document.getElementById("videoButton").addEventListener("click", playStop);
+// document.getElementById("chatButton").addEventListener("click", openCloseChats);
+// document.getElementById("participantsButton").addEventListener("click", openCloseParticipants);
 
-document.getElementById("raisehandButton").addEventListener("click", raiseLowerHand);
-document.getElementById("shareButton").addEventListener("click", shareMeet);
+// document.getElementById("raisehandButton").addEventListener("click", raiseLowerHand);
+// document.getElementById("shareButton").addEventListener("click", shareMeet);
 
 document.getElementById("modalCloseButton").addEventListener("click", () => {
   modal.style.display = "none";
@@ -334,6 +346,4 @@ window.onclick = function(event) {
   }
 }
 
-} catch(err) {
-  alert(err);
-}
+

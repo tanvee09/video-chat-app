@@ -28,25 +28,25 @@
       </div>
       <div class="main_controls">
         <div class="main_controls_block">
-          <div class="main_controls_button main_mute_button">
+          <div class="main_controls_button main_mute_button" onclick="muteUnmute()">
             <i class="fas fa-microphone" id="micButton"></i>
           </div>
-          <div class="main_controls_button main_video_button">
+          <div class="main_controls_button main_video_button" onclick="playStop()">
             <i class="fas fa-video" id="videoButton"></i>
           </div>
         </div>
-        <div class="main_controls_block">
-          <div class="main_controls_button" id="chatbtn">
+        <div class="main_controls_block" >
+          <div class="main_controls_button" id="chatbtn" onclick = "openCloseChats()">
             <i class="fas fa-comment-alt" id="chatButton" style="color:white;"></i>
           </div>
-          <div class="main_controls_button" id="participantsbtn">
+          <div class="main_controls_button" id="participantsbtn" onclick = "openCloseParticipants()">
             <i class="fas fa-users" id="participantsButton"></i>
           </div>
-          <div class="main_controls_button" id="raisehandbtn">
+          <div class="main_controls_button" id="raisehandbtn" onclick = "raiseLowerHand()">
             <i class="fas fa-hand-paper" id="raisehandButton"></i>
           </div>
-          <div class="main_controls_button" id="sharebtn">
-            <i class="fas fa-share-alt" id="shareButton"></i>
+          <div class="main_controls_button" id="sharebtn" onclick = "shareMeet()">
+            <i class="fas fa-share-alt" id="shareButton" ></i>
           </div>
         </div>
         <div class="main_controls_block">
@@ -90,9 +90,10 @@
         <p style="color:green">Meet link copied to clipboard!</p>
         <!-- <p>Enter comma separated emails to send invite: </p>
         <input type="text" name="emailids" type="text" id="emailids"><br/>
-        <input type="text" id="shareLinkText" style="display: none;" name="meetlink">
+        
         <button id="sendmailButton">Send invite</button> -->
       </form>
+      <input type="text" id="shareLinkText" style="display: none;" name="meetlink">
     </div>
   
   </div>

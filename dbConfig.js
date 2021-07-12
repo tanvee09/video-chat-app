@@ -2,10 +2,10 @@ require("dotenv").config();
 
 const { Pool } = require("pg");
 
-const connectionString = "postgres://kdnqtcid:uZzXni8Vvq5bHxeqW7nWISZC2EMVi0ss@john.db.elephantsql.com/kdnqtcid";
+const connectionString = process.env.DB_CONNECTION_STRING;
 
 const pool = new Pool({
     connectionString: connectionString
 });
 
-module.exports = { pool };
+module.exports = { pool };DB_CONNECTION_STRINGDB_CONNECTION_STRING
